@@ -31,11 +31,11 @@ case $i in
         set +e
         case $rootsize in
           0)
-            echo -e "g\nn\n\n\n\n\w\n" | fdisk /dev/sda
+            echo -e "g\nn\n\n\n\nw\n" | fdisk /dev/sda
             mkfs.ext4 /dev/sda1  > /dev/null
           ;;
           *)
-            echo -e "g\nn\n\n\+$rootsizen\nn\n\n\n\w\n" | fdisk $dev
+            echo -e "g\nn\n\n\+$rootsizen\nn\n\n\nw\n" | fdisk $dev
             mkfs.ext4 /dev/sda1  > /dev/null
             mkfs.ext4 /dev/sda2  > /dev/null
           ;;
