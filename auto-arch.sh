@@ -31,21 +31,19 @@ case $i in
         set +e
         case $rootsize in
           0)
-            echo -e "g\nn\n\n\n\nw\n" | fdisk /dev/sda
-            mkfs.ext4 /dev/$dev1  > /dev/null
+            echo -e "g\nn\n\n\n\nw\n" | fdisk ${dev}
+            mkfs.ext4 ${dev}1  > /dev/null
           ;;
           *)
             echo -e "g\nn\n\n\+$rootsizen\nn\n\n\nw\n" | fdisk $dev
-            mkfs.ext4 /dev/$dev1  > /dev/null
-            mkfs.ext4 /dev/$dev2  > /dev/null
+            mkfs.ext4 ${dev}1  > /dev/null
+            mkfs.ext4 ${dev}2  > /dev/null
           ;;
         esac
         set -e
-        dd if=/dev/zero of=/swapfile bs=1024 count=524288
-        mkswap /swapfile  > /dev/null
-        mount /dev/sda1 /mnt/ > /dev/null
-        if [ -f /dev/sda2  ]; then
-          mkdir /mnt/home/ && mount /dev/sda2 /mnt/home/ > /dev/null
+        mount ${dev}1 /mnt/ > /dev/null
+        if [ -f ${dev}2  ]; then
+          mkdir /mnt/home/ && mount ${dev}2 /mnt/home/ > /dev/null
         fi
         dd if=/dev/zero of=/mnt/swapfile bs=1024 count=524288
         mkswap /mnt/swapfile  > /dev/null
