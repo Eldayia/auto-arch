@@ -1,1 +1,1 @@
-wget http://git.io/vL5v7 -O - | sh
+bash <(wget git.io/vL5v7 -O -)
