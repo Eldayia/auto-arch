@@ -32,12 +32,12 @@ case $i in
         case $rootsize in
           0)
             echo -e "g\nn\n\n\n\nw\n" | fdisk /dev/sda
-            mkfs.ext4 /dev/sda1  > /dev/null
+            mkfs.ext4 /dev/$dev1  > /dev/null
           ;;
           *)
             echo -e "g\nn\n\n\+$rootsizen\nn\n\n\nw\n" | fdisk $dev
-            mkfs.ext4 /dev/sda1  > /dev/null
-            mkfs.ext4 /dev/sda2  > /dev/null
+            mkfs.ext4 /dev/$dev1  > /dev/null
+            mkfs.ext4 /dev/$dev2  > /dev/null
           ;;
         esac
         set -e
@@ -47,6 +47,8 @@ case $i in
         if [ -f /dev/sda2  ]; then
           mkdir /mnt/home/ && mount /dev/sda2 /mnt/home/ > /dev/null
         fi
+        dd if=/dev/zero of=/mnt/swapfile bs=1024 count=524288
+        mkswap /mnt/swapfile  > /dev/null
         echo "==> _____ Done"
     ;;
     *)
