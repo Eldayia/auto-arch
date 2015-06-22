@@ -14,9 +14,12 @@ echo "==> ### ############################ ###"
 echo "==> !! Local Host Name ?"
 read hostname
 
-echo "==> !! What disk do you want to use ? (ex: /dev/sda)"
+echo "==> !! What disk do you want to use ? (default: /dev/sda)"
 read dev
-echo "==> Your $dev disk size (ignore 'unreconized disk label' message): "
+if [ -z "$dev" ]; then
+    dev="/dev/sda"
+fi
+echo "==> Your $dev disk size: "
 parted $dev --script -- print | grep "Disk /" 2> /dev/null
 echo "==> The rest of the disk will be used for /home."
 
