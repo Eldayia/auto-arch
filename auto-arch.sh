@@ -33,10 +33,13 @@ case $i in
           0)
             echo -e "g\nn\n\n\n\n\w\n" | fdisk /dev/sda
             mkfs.ext4 /dev/sda1  > /dev/null
+          ;;
           *)
             echo -e "g\nn\n\n\+$rootsizen\nn\n\n\n\w\n" | fdisk $dev
             mkfs.ext4 /dev/sda1  > /dev/null
             mkfs.ext4 /dev/sda2  > /dev/null
+          ;;
+        esac
         set -e
         dd if=/dev/zero of=/swapfile bs=1024 count=524288
         mkswap /swapfile  > /dev/null
